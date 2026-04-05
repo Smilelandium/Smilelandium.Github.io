@@ -1,4 +1,9 @@
-window.DATA = {
+window.SITE_DATA = {
+  siteName: "SMILELANDIUM",
+  version: "v1.0.0",
+  subtitle: "text",
+  description: "Welcome to SMILELANDIUM. Здесь игры, проекты, команда и announcements.",
+  heroLogo: "../assets/Smilelandium.png",
   avatar: "../assets/profile.png",
 
   nav: [
@@ -8,20 +13,55 @@ window.DATA = {
     { href: "../team/", label: "TEAM", page: "team" }
   ],
 
+  social: [
+    { href: "#", label: "Roblox" },
+    { href: "#", label: "Telegram" }
+  ],
+
   announcementsIndex: "../announcements/index.json",
 
   games: [
-    { title: "Chaotic Battlez" },
-    { title: "Astral Ground" }
+    {
+      title: "CHAOTIC BATTLеz",
+      text: "Arena game with fast combat and chaotic pacing.",
+      image: "../assets/game-chaotic-battlez.png",
+      status: "PLAY"
+    },
+    {
+      title: "Astral Ground",
+      text: "Atmospheric game with a lighter visual style.",
+      image: "../assets/game-astral-ground.png",
+      status: "PLAY"
+    }
   ],
 
   projects: [
-    { title: "Project 1" },
-    { title: "Project 2" }
+    {
+      title: "Project One",
+      text: "Main public project page with active updates.",
+      image: "../assets/project-1.png",
+      status: "ACTIVE"
+    },
+    {
+      title: "Project Two",
+      text: "Experimental project or prototype section.",
+      image: "../assets/project-2.png",
+      status: "WIP"
+    }
   ],
 
   team: [
-    { title: "Ssmiles" },
-    { title: "Member" }
+    {
+      title: "Ssmiles",
+      text: "Owner / Founder",
+      image: "../assets/team-1.png",
+      status: "LEAD"
+    },
+    {
+      title: "Member",
+      text: "Developer / Designer",
+      image: "../assets/team-2.png",
+      status: "TEAM"
+    }
   ]
 };
