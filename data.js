@@ -1,17 +1,17 @@
 window.SITE_DATA = {
   siteName: "SMILELANDIUM",
+  version: "v1.0.0",
   subtitle: "text",
-  description:
-    "Welcome to SmileLANDIUM. Здесь будут игры, проекты, команда и отдельная announcements / shop зона.",
+  description: "Welcome to SMILELANDIUM. Здесь игры, проекты, команда и announcements.",
   avatar: "../assets/profile.png",
-  heroLogo: "../assets/logo.png",
+  heroLogo: "../assets/Smilelandium.png",
 
   nav: [
-    { href: "home.html", label: "HOME", page: "home" },
-    { href: "games.html", label: "GAMES", page: "games" },
-    { href: "projects.html", label: "PROJECTS", page: "projects" },
-    { href: "announcements.html", label: "STORE", page: "announcements" },
-    { href: "team.html", label: "TEAM", page: "team" }
+    { href: "../home/", label: "HOME", page: "home" },
+    { href: "../games/", label: "GAMES", page: "games" },
+    { href: "../projects/", label: "PROJECTS", page: "projects" },
+    { href: "../team/", label: "TEAM", page: "team" },
+    { href: "../announcements/", label: "ANNOUNCEMENTS", page: "announcements" }
   ],
 
   social: [
@@ -38,7 +38,7 @@ window.SITE_DATA = {
 
   games: [
     {
-      title: "ChAOTIC BATTLеz",
+      title: "CHaotic Battlez",
       text: "Arena game with fast combat and chaotic pacing.",
       image: "../assets/game-chaotic-battlez.png",
       status: "PLAY"
@@ -68,7 +68,7 @@ window.SITE_DATA = {
 
   team: [
     {
-      title: "Sssmmilles",
+      title: "Ssmiles",
       text: "Owner / Founder",
       image: "../assets/team-1.png",
       status: "LEAD"

@@ -1,76 +1,74 @@
 (function () {
   const DATA = window.SITE_DATA;
+  let announcementsCache = null;
 
   function asset(path) {
     return new URL(path, window.location.href).href;
   }
 
-  function safeImageTag(src, alt) {
-    if (!src) {
-      return `<div class="card-media"><div class="placeholder">IMAGE</div></div>`;
+  function escapeHtml(str) {
+    return String(str)
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#39;");
+  }
+
+  function markdownToHtml(md) {
+    const lines = String(md).replace(/\r/g, "").split("\n");
+    let html = "";
+    let inList = false;
+
+    for (const rawLine of lines) {
+      const line = rawLine.trim();
+
+      if (!line) {
+        if (inList) {
+          html += "</ul>";
+          inList = false;
+        }
+        continue;
+      }
+
+      if (/^#{1,3}\s+/.test(line)) {
+        if (inList) {
+          html += "</ul>";
+          inList = false;
+        }
+        const level = line.match(/^#+/)[0].length;
+        const text = escapeHtml(line.slice(level).trim());
+        html += `<h${level}>${text}</h${level}>`;
+        continue;
+      }
+
+      if (/^\-\s+/.test(line)) {
+        if (!inList) {
+          html += "<ul>";
+          inList = true;
+        }
+        html += `<li>${escapeHtml(line.slice(2).trim())}</li>`;
+        continue;
+      }
+
+      if (inList) {
+        html += "</ul>";
+        inList = false;
+      }
+
+      html += `<p>${escapeHtml(line)}</p>`;
     }
 
-    const resolved = asset(src);
+    if (inList) html += "</ul>";
+    return html;
+  }
 
+  function safeImageTag(src, alt) {
+    const resolved = asset(src || "");
     return `
       <div class="card-media">
-        <img src="${resolved}" alt="${alt}" onerror="this.remove();this.parentElement.innerHTML='<div class=&quot;placeholder&quot;>IMAGE</div>'">
-      </div>
-    `;
-  }
-
-  function renderNav(activePage) {
-    return `
-      <div class="panel">
-        <div class="panel-head">NAVIGATION</div>
-        <div class="panel-body right-nav">
-          ${DATA.nav.map(item => `
-            <a class="nav-btn ${activePage === item.page ? "active" : ""}" href="${item.href}">
-              ${item.label}
-            </a>
-          `).join("")}
-        </div>
-      </div>
-    `;
-  }
-
-  function renderLeftColumn() {
-    return `
-      <div class="panel">
-        <div class="panel-body">
-          <div class="profile-card">
-            <img class="avatar" src="${asset(DATA.avatar)}" alt="Profile" onerror="this.style.display='none'">
-            <div>
-              <div class="panel-head" style="margin:0 0 10px; border-radius: 10px;">Description</div>
-              <div class="description-box">${DATA.description}</div>
-            </div>
-          </div>
-
-          <div class="quick-links">
-            ${DATA.social.map(link => `<a class="small-btn" href="${link.href}">${link.label}</a>`).join("")}
-          </div>
-
-          <a class="discord-btn" href="#">Discord</a>
-        </div>
-      </div>
-    `;
-  }
-
-  function renderAnnouncementsPreview(items) {
-    return `
-      <div class="panel">
-        <div class="panel-head">Announcements</div>
-        <div class="panel-body">
-          <div class="scroll-box">
-            ${items.map(item => `
-              <div class="announcement-item">
-                <div class="announcement-title">${escapeHtml(item.title || "Announcement")}</div>
-                <p class="announcement-text">${escapeHtml(item.text || "")}</p>
-                <div class="announcement-date">${escapeHtml(item.date || "")}</div>
-              </div>
-            `).join("")}
-          </div>
-        </div>
+        <img src="${resolved}" alt="${escapeHtml(alt)}"
+             onerror="this.remove();this.parentElement.innerHTML='<div class=&quot;placeholder&quot;>IMAGE</div>'">
       </div>
     `;
   }
@@ -95,103 +93,226 @@
     `;
   }
 
+  function renderTopBar() {
+    return `
+      <header class="page-topbar">
+        <div class="brand">
+          <img class="logo" src="${asset("../assets/Smilelandium.png")}" alt="SMILELANDIUM"
+               onerror="this.style.display='none'">
+
+          <div class="brand-text">
+            <div class="brand-version">${escapeHtml(DATA.version)}</div>
+            <div class="brand-title">SMILELANDIUM</div>
+            <div class="brand-sub">.GITHUB.IO</div>
+          </div>
+        </div>
+
+        <a class="github-btn"
+           href="https://github.com/Smilelandium/Smilelandium.Github.io"
+           target="_blank"
+           rel="noreferrer"
+           aria-label="GitHub repository">
+          <svg viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38
+            0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52
+            -.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2
+            -3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82
+            .64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12
+            .51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.19
+            0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"></path>
+          </svg>
+        </a>
+      </header>
+    `;
+  }
+
+  function renderLeftColumn() {
+    return `
+      <div class="panel">
+        <div class="panel-body">
+          <div class="profile-card">
+            <img class="avatar" src="${asset(DATA.avatar)}" alt="Profile"
+                 onerror="this.style.display='none'">
+
+            <div>
+              <div class="panel-head">DESCRIPTION</div>
+              <div class="description-box">${escapeHtml(DATA.description)}</div>
+            </div>
+          </div>
+
+          <div class="quick-links">
+            ${DATA.social.map(link => `<a class="small-btn" href="${link.href}">${escapeHtml(link.label)}</a>`).join("")}
+          </div>
+
+          <a class="discord-btn" href="#">Discord</a>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">ANNOUNCEMENTS</div>
+        <div class="panel-body">
+          <div id="sidebar-announcements" class="scroll-box">
+            <div class="announcement-item">
+              <div class="announcement-title">Loading...</div>
+              <p class="announcement-text">Announcements are loading.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderRightNav(activePage) {
+    return `
+      <div class="panel">
+        <div class="panel-head">NAVIGATION</div>
+        <div class="panel-body right-nav">
+          ${DATA.nav.map(item => `
+            <a class="nav-btn ${activePage === item.page ? "active" : ""}" href="${item.href}">
+              ${item.label}
+            </a>
+          `).join("")}
+        </div>
+      </div>
+    `;
+  }
+
   function renderHome() {
     return `
       <section class="hero">
-        <img class="hero-logo" src="${asset(DATA.heroLogo)}" alt="${DATA.siteName}" onerror="this.style.display='none'">
+        <img class="hero-logo" src="${asset(DATA.heroLogo)}" alt="SMILELANDIUM"
+             onerror="this.style.display='none'">
         <div class="hero-copy">${escapeHtml(DATA.subtitle)}</div>
       </section>
 
-      <div class="section-title">Games</div>
+      <div class="section-title">GAMES</div>
       ${renderCards(DATA.games, "games")}
     `;
   }
 
   function renderGames() {
     return `
-      <div class="section-title">Games</div>
+      <div class="section-title">GAMES</div>
       ${renderCards(DATA.games, "games")}
     `;
   }
 
   function renderProjects() {
     return `
-      <div class="section-title">Projects</div>
+      <div class="section-title">PROJECTS</div>
       ${renderCards(DATA.projects, "projects")}
     `;
   }
 
   function renderTeam() {
     return `
-      <div class="section-title">Team</div>
+      <div class="section-title">TEAM</div>
       ${renderCards(DATA.team, "team")}
     `;
   }
 
-  function renderAnnouncements() {
+  function renderAnnouncementsPage() {
     return `
-      <div class="section-title">Announcements</div>
-      <div id="announcements-list" class="grid" style="grid-template-columns: 1fr;"></div>
+      <div class="section-title">ANNOUNCEMENTS</div>
+      <div id="announcements-main" class="grid" style="grid-template-columns: 1fr; margin-bottom: 18px;">
+        <div class="announcement-item">
+          <div class="announcement-title">Loading...</div>
+          <p class="announcement-text">Announcements are loading.</p>
+        </div>
+      </div>
 
-      <div class="section-title">Shop</div>
+      <div class="section-title">SHOP</div>
       ${renderCards(DATA.shop, "shop")}
     `;
   }
 
-  function escapeHtml(str) {
-    return String(str)
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#39;");
+  async function fetchAnnouncements() {
+    if (announcementsCache) return announcementsCache;
+
+    const indexUrl = new URL(DATA.announcementsIndex, window.location.href).href;
+    const indexRes = await fetch(indexUrl, { cache: "no-store" });
+
+    if (!indexRes.ok) {
+      throw new Error("Cannot load announcements index");
+    }
+
+    const index = await indexRes.json();
+    const baseUrl = new URL(DATA.announcementsIndex, window.location.href).href;
+    const baseFolder = baseUrl.substring(0, baseUrl.lastIndexOf("/") + 1);
+
+    const items = [];
+    for (const item of index) {
+      const mdUrl = new URL(item.file, baseFolder).href;
+      const mdRes = await fetch(mdUrl, { cache: "no-store" });
+      if (!mdRes.ok) continue;
+
+      const mdText = await mdRes.text();
+      items.push({
+        title: item.title || "Announcement",
+        date: item.date || "",
+        html: markdownToHtml(mdText)
+      });
+    }
+
+    announcementsCache = items;
+    return items;
   }
 
-  function markdownToHtml(md) {
-    const escaped = escapeHtml(md);
-
-    return escaped
-      .replace(/^### (.*)$/gm, "<h3>$1</h3>")
-      .replace(/^## (.*)$/gm, "<h2>$1</h2>")
-      .replace(/^# (.*)$/gm, "<h1>$1</h1>")
-      .replace(/^\- (.*)$/gm, "<li>$1</li>")
-      .replace(/\n\n/g, "</p><p>")
-      .replace(/\n/g, "<br>");
-  }
-
-  async function loadAnnouncements() {
-    const listTarget = document.getElementById("announcements-list");
-    if (!listTarget) return;
+  async function loadSidebarAnnouncements() {
+    const box = document.getElementById("sidebar-announcements");
+    if (!box) return;
 
     try {
-      const indexRes = await fetch(DATA.announcementsIndex, { cache: "no-store" });
-      if (!indexRes.ok) throw new Error("Cannot load announcements/index.json");
+      const items = await fetchAnnouncements();
+      const preview = items.slice(0, 3);
 
-      const index = await indexRes.json();
-
-      const blocks = [];
-      for (const item of index) {
-        const mdRes = await fetch(new URL(item.file, window.location.href).href, { cache: "no-store" });
-        if (!mdRes.ok) continue;
-
-        const mdText = await mdRes.text();
-        blocks.push(`
+      box.innerHTML = preview.length
+        ? preview.map(item => `
+            <div class="announcement-item">
+              <div class="announcement-title">${escapeHtml(item.title)}</div>
+              <div class="announcement-date">${escapeHtml(item.date)}</div>
+            </div>
+          `).join("")
+        : `
           <div class="announcement-item">
-            <div class="announcement-title">${escapeHtml(item.title || "Announcement")}</div>
-            <div class="announcement-date">${escapeHtml(item.date || "")}</div>
-            <div class="markdown"><p>${markdownToHtml(mdText)}</p></div>
+            <div class="announcement-title">No announcements</div>
+            <p class="announcement-text">Add .md files in announcements/ and register them in index.json.</p>
           </div>
-        `);
-      }
-
-      listTarget.innerHTML = blocks.join("") || `
+        `;
+    } catch (err) {
+      box.innerHTML = `
         <div class="announcement-item">
-          <div class="announcement-title">No announcements</div>
-          <p class="announcement-text">Add .md files and register them in announcements/index.json.</p>
+          <div class="announcement-title">Error</div>
+          <p class="announcement-text">Failed to load announcements.</p>
         </div>
       `;
+      console.error(err);
+    }
+  }
+
+  async function loadAnnouncementsMain() {
+    const box = document.getElementById("announcements-main");
+    if (!box) return;
+
+    try {
+      const items = await fetchAnnouncements();
+
+      box.innerHTML = items.length
+        ? items.map(item => `
+            <div class="announcement-item">
+              <div class="announcement-title">${escapeHtml(item.title)}</div>
+              <div class="announcement-date">${escapeHtml(item.date)}</div>
+              <div class="markdown">${item.html}</div>
+            </div>
+          `).join("")
+        : `
+          <div class="announcement-item">
+            <div class="announcement-title">No announcements</div>
+            <p class="announcement-text">Add .md files in announcements/ and register them in index.json.</p>
+          </div>
+        `;
     } catch (err) {
-      listTarget.innerHTML = `
+      box.innerHTML = `
         <div class="announcement-item">
           <div class="announcement-title">Error</div>
           <p class="announcement-text">Failed to load announcements.</p>
@@ -205,59 +326,34 @@
   const app = document.getElementById("app");
 
   app.innerHTML = `
-    <header class="page-topbar">
-      <div class="brand">
-        <img src="${asset("../assets/logo.png")}" alt="Logo" onerror="this.style.display='none'">
-        <div class="title">
-          <span class="smile">Smile</span><span class="landium">LANDIUM</span><span class="dot">.GITHUB.IO</span>
-        </div>
-      </div>
-      <a class="github-btn" href="#" aria-label="GitHub">
-        <svg viewBox="0 0 16 16" aria-hidden="true">
-          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38
-          0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52
-          -.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2
-          -3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82
-          .64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12
-          .51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.19
-          0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"></path>
-        </svg>
-      </a>
-    </header>
-
+    ${renderTopBar()}
     <div class="layout">
       <aside class="left-column sections-stack">
         ${renderLeftColumn()}
-        ${page === "announcements" ? renderAnnouncementsPreview([]) : renderAnnouncementsPreview([])}
       </aside>
 
       <main class="panel content-panel">
-        <div class="panel-head" style="font-size: 20px;">${page.charAt(0).toUpperCase() + page.slice(1)}</div>
+        <div class="panel-head">${page.toUpperCase()}</div>
         <div class="panel-body">
           ${
-            page === "home" ? renderHome() :
-            page === "games" ? renderGames() :
-            page === "projects" ? renderProjects() :
-            page === "team" ? renderTeam() :
-            page === "announcements" ? renderAnnouncements() :
-            renderHome()
+            page === "home" ? renderHome()
+            : page === "games" ? renderGames()
+            : page === "projects" ? renderProjects()
+            : page === "team" ? renderTeam()
+            : page === "announcements" ? renderAnnouncementsPage()
+            : renderHome()
           }
         </div>
       </main>
 
       <aside class="right-column">
-        ${renderNav(page)}
-        <div class="panel" style="margin-top: 12px;">
-          <div class="panel-head">TEAM</div>
-          <div class="panel-body">
-            <a class="shop-btn" href="team.html">TEAM</a>
-          </div>
-        </div>
+        ${renderRightNav(page)}
       </aside>
     </div>
   `;
 
+  loadSidebarAnnouncements();
   if (page === "announcements") {
-    loadAnnouncements();
+    loadAnnouncementsMain();
   }
 })();

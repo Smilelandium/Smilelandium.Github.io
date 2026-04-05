@@ -6,7 +6,6 @@
   --line: #666;
   --text: #f2f2f2;
   --muted: #c9c9c9;
-  --accent: #78a8ff;
   --shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
   --radius: 14px;
 }
@@ -29,7 +28,7 @@ a {
 }
 
 .page-topbar {
-  height: 72px;
+  height: 76px;
   background: #262626;
   border-bottom: 1px solid #3d3d3d;
   display: flex;
@@ -41,32 +40,41 @@ a {
 .brand {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
 }
 
-.brand img {
-  width: 46px;
-  height: 46px;
+.logo {
+  width: 52px;
+  height: 52px;
   object-fit: contain;
+  display: block;
 }
 
-.brand .title {
-  font-size: 28px;
-  font-weight: 800;
-  letter-spacing: 1px;
+.brand-text {
+  display: flex;
+  flex-direction: column;
   line-height: 1;
 }
 
-.brand .title .smile {
-  color: #ffbf2f;
+.brand-version {
+  font-size: 11px;
+  color: #aaa;
+  padding-bottom: 2px;
+  margin-bottom: 2px;
+  border-bottom: 2px solid #7a7a7a;
+  width: fit-content;
 }
 
-.brand .title .landium {
-  color: #8d6bcf;
+.brand-title {
+  font-size: 24px;
+  font-weight: 900;
+  letter-spacing: 2px;
 }
 
-.brand .title .dot {
-  color: #f0f0f0;
+.brand-sub {
+  font-size: 12px;
+  color: #d7d7d7;
+  margin-top: 2px;
 }
 
 .github-btn {
@@ -76,6 +84,7 @@ a {
   background: #4a4a4a;
   display: grid;
   place-items: center;
+  flex: 0 0 auto;
 }
 
 .github-btn svg {
@@ -91,6 +100,7 @@ a {
   display: grid;
   grid-template-columns: 320px minmax(0, 1fr) 260px;
   gap: 12px;
+  align-items: start;
 }
 
 .panel {
@@ -99,6 +109,7 @@ a {
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   overflow: hidden;
+  align-self: start;
 }
 
 .panel-head {
@@ -116,30 +127,31 @@ a {
 .sections-stack {
   display: grid;
   gap: 12px;
+  align-content: start;
 }
 
 .profile-card {
   display: grid;
-  grid-template-columns: 120px 1fr;
+  grid-template-columns: 104px 1fr;
   gap: 12px;
   align-items: start;
 }
 
 .avatar {
-  width: 120px;
-  height: 120px;
+  width: 104px;
+  height: 104px;
   border-radius: 12px;
   object-fit: cover;
   background: #666;
   border: 1px solid #5e5e5e;
+  display: block;
 }
 
 .description-box {
-  min-height: 120px;
-  padding: 8px 0 0;
   color: var(--muted);
   font-size: 15px;
-  line-height: 1.4;
+  line-height: 1.45;
+  margin-top: 8px;
 }
 
 .quick-links {
@@ -177,7 +189,7 @@ a {
 }
 
 .scroll-box {
-  max-height: 380px;
+  max-height: 320px;
   overflow: auto;
   padding-right: 4px;
 }
@@ -200,7 +212,7 @@ a {
   font-size: 14px;
   color: var(--muted);
   margin: 0;
-  line-height: 1.5;
+  line-height: 1.45;
 }
 
 .announcement-date {
@@ -210,16 +222,16 @@ a {
 }
 
 .content-panel {
-  min-height: calc(100vh - 96px);
+  min-height: calc(100vh - 100px);
 }
 
 .hero {
   text-align: center;
-  padding: 18px 14px 12px;
+  padding: 12px 14px 10px;
 }
 
 .hero-logo {
-  max-width: min(100%, 760px);
+  max-width: min(100%, 720px);
   width: 100%;
   height: auto;
   display: block;
@@ -349,15 +361,10 @@ a {
   color: #fff;
 }
 
-.footer-note {
-  margin-top: 14px;
-  color: #bdbdbd;
-  font-size: 12px;
-}
-
 .markdown {
   color: #f3f3f3;
   line-height: 1.6;
+  font-size: 14px;
 }
 
 .markdown h1,
