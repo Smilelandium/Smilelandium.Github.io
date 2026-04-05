@@ -50,7 +50,7 @@ a {
 }
 
 .logo {
-  height: 40px;
+  height: 65px;
   width: auto;
   display: block;
   object-fit: contain;
@@ -71,13 +71,6 @@ a {
   width: fit-content;
   border-bottom: 2px solid #7d7d7d;
   padding-bottom: 2px;
-}
-
-.brand-title {
-  font-size: 22px;
-  font-weight: 900;
-  letter-spacing: 2px;
-  white-space: nowrap;
 }
 
 .brand-sub {

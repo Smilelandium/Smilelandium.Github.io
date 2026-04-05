@@ -2,7 +2,7 @@ window.SITE_DATA = {
   siteName: "SMILELANDIUM",
   version: "v1.0.0",
   subtitle: "text",
-  description: "Welcome to SMILELANDIUM. Здесь игры, проекты, команда и announcements.",
+  description: "Welcome to Itz we guyz!1.",
   heroLogo: "../assets/Smilelandium.png",
   avatar: "../assets/profile.png",
 
