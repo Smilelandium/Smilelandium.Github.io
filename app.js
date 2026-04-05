@@ -100,7 +100,7 @@
     return `
       <header class="page-topbar">
         <div class="brand">
-          <img class="logo" src="${asset("../assets/Smilelandium.png")}" alt="SMILELANDIUM"
+          <img class="logo" src="${asset("../assets/images/Smilelandium.png")}" alt="SMILELANDIUM"
                onerror="this.style.display='none'">
 
           <div class="brand-text">
@@ -110,7 +110,7 @@
         </div>
 
         <a class="github-btn"
-           href="https://github.com/Smilelandium/Smilelandium.Github.io"
+           href="https://github.com/Smilelandium/images/Smilelandium.Github.io"
            target="_blank"
            rel="noreferrer"
            aria-label="GitHub repository">

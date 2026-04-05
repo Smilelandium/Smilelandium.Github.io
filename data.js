@@ -2,9 +2,9 @@ window.SITE_DATA = {
   siteName: "SMILELANDIUM",
   version: "v1.0.1",
   subtitle: "",
-  description: "Welcome to Itz we guyz!1.",
-  heroLogo: "../assets/Smilelandium.png",
-  avatar: "../assets/Icon.png",
+  description: "Itz we guyz!1.",
+  heroLogo: "../assets/images/Smilelandium.png",
+  avatar: "../assets/images/Icon.png",
 
   nav: [
     { href: "../home/", label: "HOME", page: "home" },
@@ -23,15 +23,21 @@ window.SITE_DATA = {
   games: [
     {
       title: "CHAOTIC BATTLEz",
-      text: "Arena game with fast combat and chaotic pacing.",
-      image: "../assets/game-chaotic-battlez.png",
-      status: "PLAY"
+      text: "ABSOLUTE INSANE CHAOS, MAPS, GAMEMODES, SPECIAL ROuNDs!! THATs NOT ALL beCAUSE IS A SANDB0X",
+      image: "../assets/CBz-Banner.png",
+      status: "Frozen"
     },
     {
       title: "Astral Ground",
-      text: "Atmospheric game with a lighter visual style.",
-      image: "../assets/game-astral-ground.png",
-      status: "PLAY"
+      text: "unknown.",
+      image: "../assets/AG-Banner.png",
+      status: "Unknown"
+    }
+    {
+      title: "3.14",
+      text: "unknown.",
+      image: "../assets/.3.14-Banner.png",
+      status: "Unknown"
     }
   ],
 
@@ -47,9 +53,9 @@ window.SITE_DATA = {
   team: [
     {
       title: "Sssmmilles",
-      text: "Owner",
+      text: "Creator of Smilelandium, bla bla bla",
       image: "../assets/team-1.png",
-      status: "LEAD"
+      status: "Owner"
     }
   ]
 };
