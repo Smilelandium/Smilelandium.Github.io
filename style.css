@@ -1,6 +1,7 @@
 body {
     text-align: center;
-    font-family: Arial;
+    font-family: Monospace;
+    text-width: 900;
 }
 
 p {
