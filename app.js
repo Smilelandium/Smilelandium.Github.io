@@ -184,7 +184,7 @@
              onerror="this.style.display='none'">
         <div class="hero-copy">${escapeHtml(DATA.subtitle)}</div>
       </section>
-      <div class="section-title">GAMES</div>
+      <div class="section-title">idk lol</div>
     `;
   }
 
