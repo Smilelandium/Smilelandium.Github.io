@@ -4,7 +4,7 @@ window.SITE_DATA = {
   subtitle: "Welcome to smilelandium! bro leave from the website not finished.",
   description: "Itz we guyz!1.",
   heroLogo: "../assets/images/SmilelandiumWhite.png",
-  avatar: "../assets/images/Icon.png",
+  avatar: "../assets/images/SmilelandiumIcon.png",
 
   nav: [
     { href: "../home/", label: "HOME", page: "home" },
