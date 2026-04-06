@@ -82,7 +82,7 @@ a {
 }
 
 .brand-sub {
-  font-size: 48px;
+  font-size: 49px;
   color: #d1d1d1;
   margin-top: 0px;
   white-space: nowrap;
@@ -351,7 +351,7 @@ a {
 
 .nav-btn {
   width: 100%;
-  background: #6b6b6b;
+  background: #414141;
   color: #fff;
   font-size: 15px;
   min-height: 46px;
@@ -365,7 +365,7 @@ a {
 
 .nav-btn:hover {
   transform: translateY(-1px);
-  background: #7a7a7a;
+  background: #515151;
 }
 
 .nav-btn.active {
