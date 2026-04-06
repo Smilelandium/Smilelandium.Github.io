@@ -184,7 +184,6 @@
              onerror="this.style.display='none'">
         <div class="hero-copy">${escapeHtml(DATA.subtitle)}</div>
       </section>
-      }
     `;
   }
 

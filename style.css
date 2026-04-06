@@ -74,7 +74,7 @@ a {
   width: fit-content;
   border-bottom: 2px solid #7d7d7d;
   border-right-width: 1px;
-  padding-bottom: 1px;
+  padding-bottom: 0px;
   font-weight: 600;
   outline-offset: 1px;
   outline-width: 1.6px;
@@ -82,7 +82,7 @@ a {
 }
 
 .brand-sub {
-  font-size: 46px;
+  font-size: 48px;
   color: #d1d1d1;
   margin-top: 0px;
   white-space: nowrap;
@@ -177,9 +177,9 @@ a {
 
 .small-btn {
   flex: 1;
-  min-height: 30px;
+  min-height: 32px;
   border-radius: 6px;
-  background: #6d8fe0;
+  background: #6f8cc3;
   color: #fff;
   display: inline-flex;
   align-items: center;
@@ -192,14 +192,13 @@ a {
   width: 100%;
   min-height: 42px; 
   border-radius: 6px;
-  background: #6f9df3;
+  background: #6f8cc3;
   color: #fff;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   font-size: 13px;
   font-weight: 700;
-  margin-top: 0px;
 }
 
 .scroll-box {

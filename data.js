@@ -1,7 +1,7 @@
 window.SITE_DATA = {
   siteName: "SMILELANDIUM",
-  version: "v1.0.2",
-  subtitle: "Welcome to smilelandium! bro leave the website not finished.",
+  version: "v1.0.03",
+  subtitle: "Welcome to smilelandium! bro leave from the website not finished.",
   description: "Itz we guyz!1.",
   heroLogo: "../assets/images/SmilelandiumWhite.png",
   avatar: "../assets/images/Icon.png",
