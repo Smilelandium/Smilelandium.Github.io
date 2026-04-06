@@ -32,7 +32,7 @@ window.SITE_DATA = {
       text: "unknown.",
       image: "../assets/AG-Banner.png",
       status: "Unknown"
-    }
+    },
     {
       title: "3.14",
       text: "unknown.",
