@@ -69,15 +69,16 @@ a {
 
 .brand-version {
   font-size: 20px;
-  color: #a9a9a9;
+  color: #7d7d7d;
   margin-bottom: 0px;
   width: fit-content;
   border-bottom: 2px solid #7d7d7d;
+  border-right-width: 1px;
   padding-bottom: 1px;
   font-weight: 600;
   outline-offset: 1px;
-  outline-width: 1.5px;
-  font-family:'Montserrat'
+  outline-width: 1.6px;
+  font-family:'Montserrat';
 }
 
 .brand-sub {
@@ -86,7 +87,7 @@ a {
   margin-top: 0px;
   white-space: nowrap;
   font-weight: 700;
-  font-family:'Montserrat'
+  font-family:'Montserrat';
 }
 
 .github-btn {
@@ -198,7 +199,7 @@ a {
   justify-content: center;
   font-size: 13px;
   font-weight: 700;
-  margin-top: 2px;
+  margin-top: 0px;
 }
 
 .scroll-box {
