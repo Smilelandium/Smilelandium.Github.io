@@ -9,7 +9,7 @@ window.SITE_DATA = {
   nav: [
     { href: "../home/", label: "HOME", page: "home" },
     { href: "../games/", label: "GAMES", page: "games" },
-    { href: "../projects/", label: "PROJECTS", page: "projects" },
+    { href: "../community/", label: "COMMUNITY", page: "community" },
     { href: "../team/", label: "TEAM", page: "team" }
   ],
 
