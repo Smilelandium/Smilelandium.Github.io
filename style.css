@@ -63,9 +63,9 @@ a {
   width: auto;
   display: block;
   object-fit: contain;
-  margin-top: 3px;
+  margin-top: 5px;
   flex: 0 0 auto;
-  margin-left: -2px;
+  margin-left: -5px;
 }
 
 .brand-version {
@@ -79,9 +79,9 @@ a {
   font-weight: 600;
   outline-offset: 1px;
   outline-width: 1.6px;
-  text-underline-offset: 2px;
+  text-underline-offset: 3px;
   font-family:'Montserrat';
-  margin-left: -2px;
+  margin-left: -5px;
 }
 
 .brand-sub {
@@ -91,7 +91,7 @@ a {
   white-space: nowrap;
   font-weight: 700;
   font-family:'Montserrat';
-  margin-left: -2px;
+  margin-left: -5px;
 }
 
 .github-btn {
@@ -213,7 +213,7 @@ a {
 }
 
 .discord-btn:hover {
-  transform: scale(1.09);
+  transform: scale(1.025);
   background: #6f8cc3;
 }
 
