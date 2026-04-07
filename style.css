@@ -194,7 +194,7 @@ a {
 }
 
 .small-btn:hover {
-  transform: scale(1.09);
+  transform: scale(1.03);
   background: #6f8cc3;
 }
 
@@ -213,7 +213,7 @@ a {
 }
 
 .discord-btn:hover {
-  transform: scale(1.025);
+  transform: scale(1.04);
   background: #6f8cc3;
 }
 
@@ -380,11 +380,13 @@ a {
 }
 
 .nav-btn:hover {
+  transform: scale(1.01);
   transform: translateY(-1px);
   background: #5c5c5c;
 }
 
 .nav-btn.active {
+  transform: scale(1.02);
   background: #606060;
 }
 
